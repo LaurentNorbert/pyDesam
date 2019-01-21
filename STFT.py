@@ -33,7 +33,7 @@ def Stft(x, wlen, h, nfft, fs, winType='hamming'):
     AUTHORS
     ======
     bouvier@ircam.fr, based on the 'stft.m' function from Hristo Zhivomirov (dated 12/21/13).
-    Copyright (c) 2015 IRCAM
+    Copyright (c) 2015 IRCAM under GNU General Public License version 3.
     Developed on MatLab 7.7.0.471 (R2008b)
 
     Translation to python, E. L. Benaroya - 09/2018 - Telecom ParisTech - laurent.benaroya@gmail.com
