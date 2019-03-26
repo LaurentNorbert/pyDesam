@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import soundfile as snd  # pip install !
-
-from scipy.io import savemat
 from scipy.io import loadmat
 
 import os.path
@@ -11,7 +9,7 @@ import HRaudio as hr
 import STFT
 
 """
-Démo script : adaptive High Resolution spectral analysis applied to an audio signal
+Demo script : adaptive High Resolution spectral analysis applied to an audio signal
 """
 
 audioPath = 'audio'
@@ -45,8 +43,8 @@ l = 65     # number of data vectors for each analysis window
 N = n+l-1   # total length of the observation window
 
 # ## number of poles in each subband ; automatic determination if 0
-# rang = [20, 20, 20]
-rank = np.zeros((D,))  # [0, 0, 0, 0, 0, 0]
+rank = [20, 20, 20, 1, 1, 1, 1, 1]
+# rank = np.zeros((D,))  # [0, 0, 0, 0, 0, 0]
 rmax = 25  # maximum rank in the ESM model (i.e. number of poles) if rank[k] == 0 (with the ESTER criterion)
 
 print('Parameters:')
@@ -69,7 +67,7 @@ nfft = 4096
 hopSize = 512
 winSize = 3000  # 68 ms at 44100 Hz
 
-plt.subplot(2,1,1)
+plt.subplot(2, 1, 1)
 plt.title('spectrogram')
 Xs, f, t = STFT.spectrogram(s, winSize, hopSize, nfft, Fs, plot=True)
 # plt.show()
@@ -79,8 +77,8 @@ Xs, f, t = STFT.spectrogram(s, winSize, hopSize, nfft, Fs, plot=True)
 ##################
 d = loadmat('colors.mat')  # load Roland Badeau's colormap
 
-plt.subplot(2,1,2)
-hr.HRogram(N*D/8, Fs, The_z, The_alpha, n, d['colors'])
+plt.subplot(2, 1, 2)
+hr.HRogram(int(N*D/8), Fs, The_z, The_alpha, n, d['colors'])
 plt.title('HRogram')
 plt.tight_layout()
 

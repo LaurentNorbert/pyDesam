@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 def analyse(s, Fs, D, L, rank, n=128, l=129, rmax=None):
-    '''
+    """
    Estimation of the complex poles and the associated complex amplitudes for the Exponential Sinusoidal Model (ESM)
    using an adaptive ESPRIT algorithm.
 
@@ -85,7 +85,7 @@ def analyse(s, Fs, D, L, rank, n=128, l=129, rmax=None):
    Copyright (C) 2004-2008 Roland Badeau
    Send bugs and requests to roland.badeau@telecom-paristech.fr
    Translation from Matlab to python : ELB - laurent.benaroya@gmail.com - 08/2018
-    '''
+    """
     M = 2*D  # total number of subbands (D postive frequency subbands and D negative frequency subbands)
     h = filterbank.filterbank(L, D)  # computation of the analysis filters
 
@@ -137,7 +137,7 @@ def analyse(s, Fs, D, L, rank, n=128, l=129, rmax=None):
 
 def estim(yin, r=0, n=128, l=129, rmax=None):
 
-    '''
+    """
    Estimation of the complex poles and the associated complex amplitudes for the Exponential Sinusoidal Model (ESM)
    using an adaptive ESPRIT algorithm.
    See Roland Badeau PhD thesis for more information about the algorithms.
@@ -166,7 +166,7 @@ def estim(yin, r=0, n=128, l=129, rmax=None):
    Copyright (C) 2004-2008 Roland Badeau
    Send bugs and requests to roland.badeau@telecom-paristech.fr
    LAST UPDATE : ELB - laurent.benaroya@gmail.com - 08/2018 : translation from Matlab to python
-    '''
+    """
     ###################
     # INITIALISATIONS #
     ###################
@@ -334,7 +334,7 @@ def estim(yin, r=0, n=128, l=129, rmax=None):
 
 
 def HRogram(N8, Fs, The_z, The_alpha, n, colors, M=1, threshold=150, Name=""):
-    '''
+    """
     Draw an "HRogram" from a High Resolution spectral analysis
 
     Parameters
@@ -362,7 +362,7 @@ def HRogram(N8, Fs, The_z, The_alpha, n, colors, M=1, threshold=150, Name=""):
     -------
     Copyright (C) 2004-2008 Roland Badeau
     Send bugs and requests to roland.badeau@telecom-paristech.fr
-    '''
+    """
     Freq = np.mod(np.angle(The_z)/(2*np.pi), 1)  # frequencies
     Pow = np.abs(The_alpha)**2/n  # intensities
     Pow = 10*np.log10(Pow+1e-16)
@@ -385,7 +385,7 @@ def HRogram(N8, Fs, The_z, The_alpha, n, colors, M=1, threshold=150, Name=""):
 
 
 def plotsc(x, y, z, colors):
-    '''
+    """
     Draw a point (x,y) in the 2-D plane with a color corresponding to the level z, in a specified colormap
 
     Parameters
@@ -404,7 +404,7 @@ def plotsc(x, y, z, colors):
     Copyright (C) 2004-2008 Roland Badeau
     Send bugs and requests to roland.badeau@telecom-paristech.fr
     Translation from Matlab to python by E.L. Benaroya - 08/2018
-     '''
+     """
 
     N = len(x)
     Ncol = colors.shape[0]
@@ -421,7 +421,7 @@ def plotsc(x, y, z, colors):
 
 
 def synthese(z, alpha, D, n, l, beta=1.):
-    '''
+    """
     re-synthesize a signal from the estimated HR parameters
 
     Parameters
@@ -447,7 +447,7 @@ def synthese(z, alpha, D, n, l, beta=1.):
     Copyright (C) 2004-2008 Roland Badeau
     Send bugs and requests to roland.badeau@telecom-paristech.fr
     Translation from Matlab to python by E.L. Benaroya - 2018
-    '''
+    """
 
     # INITIALISATIONS
     r = z.shape[0]  # rank of the model
@@ -492,7 +492,7 @@ def synthese(z, alpha, D, n, l, beta=1.):
 
 
 def hanningPeriodic(L, reverse=False):
-    '''
+    """
     periodic Hanning window (same as hanning(L,'periodic') in Matlab)
     Parameters
     ----------
@@ -507,7 +507,7 @@ def hanningPeriodic(L, reverse=False):
         Hanning window
     Author : E.L. Benaroya - Telecom  Paristech -laurent.benaroya@gmail.com
              09/2018
-    '''
+    """
 
     ind2 = np.arange(L+1)
     win = 0.5*(1-np.cos(2*np.pi*ind2/L))
@@ -515,5 +515,3 @@ def hanningPeriodic(L, reverse=False):
     if reverse:
         win2 = np.flip(win2, axis=0)
     return win2
-
-

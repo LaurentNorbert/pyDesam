@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 def filterbank(N, D):
-    '''
+    """"
     Build D analysis filters of length N
 
     Parameters
@@ -41,7 +41,7 @@ def filterbank(N, D):
     Copyright (C) Jacques Prado
     Send bugs and requests to jacques.prado@telecom-paristech.fr
     Translation from Matlab to python by E.L. Benaroya - 09/2018
-    '''
+    """
 
     # COMPUTE PROTOTYPE FILTER FOR A DCT FILTERBANK
     lfft = 4096
@@ -70,7 +70,7 @@ def filterbank(N, D):
 
 
 def loti(M, N, ws, alpha, len_grid):
-    '''
+    """"
     cosine-modulated for N ODD
     Parameters
     ----------
@@ -96,7 +96,7 @@ def loti(M, N, ws, alpha, len_grid):
     Copyright (C) Jacques Prado
     Send bugs and requests to jacques.prado@telecom-paristech.fr
     Translation from Matlab to python by E.L. Benaroya - 09/2018
-    '''
+    """
     tau = 0.5
     N2 = int((N-1)/2)
     q = np.zeros((N2+1,))
@@ -106,7 +106,8 @@ def loti(M, N, ws, alpha, len_grid):
     # Initialize p
 
     aM = 1/float(M)
-    inip = sig.firls(N, np.array([0., 0.5*aM-1./8.*aM, 0.5*aM+1./8.*aM, 1.]), np.array([1, 1, 0, 0]))
+    inip = sig.firls(N, np.array([0., 0.5*aM-1./8.*aM, 0.5*aM+1./8.*aM, 1.]),
+                     np.array([1, 1, 0, 0]))
     # in firls N must be odd
     # p = [2*inip[:N2], inip[N2]]
     p = np.concatenate((2*inip[:N2, ], inip[N2][np.newaxis, ]))
@@ -168,7 +169,7 @@ def loti(M, N, ws, alpha, len_grid):
 
 
 def nextpow2(n):
-    '''
+    """
     returns the first pow such that np.power(2,pow) >= n.
     Parameters
     ----------
@@ -177,7 +178,7 @@ def nextpow2(n):
     Returns
     -------
     pow : int
-    '''
+    """
     pow = 0
     npow = np.power(2, pow)
     while npow < n:
