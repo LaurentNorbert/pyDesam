@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.fftpack
 
 
 def Stft(x, wlen, h, nfft, fs, winType='hamming'):
-    '''
+    """
     Compute the Short-Time Fourier Transform of a signal, with an hamming window.
 
     Parameters
@@ -37,7 +38,7 @@ def Stft(x, wlen, h, nfft, fs, winType='hamming'):
     Developed on MatLab 7.7.0.471 (R2008b)
 
     Translation to python, E. L. Benaroya - 09/2018 - Telecom ParisTech - laurent.benaroya@gmail.com
-    '''
+    """
 
     if winType.lower() == 'hamming':
         win = np.hamming(wlen)
@@ -54,7 +55,7 @@ def Stft(x, wlen, h, nfft, fs, winType='hamming'):
 
     while indx+wlen < xlen:
         xw = x[indx:(indx+wlen)]*win
-        Xtmp = np.fft.fft(xw, nfft)
+        Xtmp = scipy.fftpack.fft(xw, nfft)
 
         X[:, col] = Xtmp[:rown]
 
@@ -68,7 +69,7 @@ def Stft(x, wlen, h, nfft, fs, winType='hamming'):
 
 
 def Istft(X, wlen, h, nfft, fs, winType='hamming'):
-    '''
+    """
     Inverse STFT
     Parameters
     ----------
@@ -90,7 +91,7 @@ def Istft(X, wlen, h, nfft, fs, winType='hamming'):
         output waveform
     t : numpy array (n,)
         time vector in seconds
-    '''
+    """
 
     if winType.lower() == 'hamming':
         win = np.hamming(wlen)
@@ -108,7 +109,7 @@ def Istft(X, wlen, h, nfft, fs, winType='hamming'):
             Xtmp = X[:, int(b/h)]
 
             xprim = np.concatenate((Xtmp, np.flip(np.conj(Xtmp[1:]), axis=0)), axis=0)
-            xprim = np.real(np.fft.ifft(xprim, nfft))
+            xprim = np.real(scipy.fftpack.ifft(xprim, nfft))
             xprim = xprim[:wlen]
 
             x[b:(b+wlen)] += xprim*win
@@ -119,7 +120,7 @@ def Istft(X, wlen, h, nfft, fs, winType='hamming'):
             Xtmp = X[:, int(b/h)]
 
             xprim = np.concatenate((Xtmp, np.flip(np.conj(Xtmp[1:-1]), axis=0)), axis=0)
-            xprim = np.real(np.fft.ifft(xprim, nfft))
+            xprim = np.real(scipy.fftpack.ifft(xprim, nfft))
             xprim = xprim[:wlen]
 
             x[b:(b+wlen)] += xprim*win
@@ -133,7 +134,7 @@ def Istft(X, wlen, h, nfft, fs, winType='hamming'):
 
 
 def spectrogram(x,  wlen, h, nfft, fs, dB=True, plot=False, show=False):
-    '''
+    """"
     Compute and display the spectrogram of a 1D signal
     Parameters
     ----------
@@ -163,14 +164,15 @@ def spectrogram(x,  wlen, h, nfft, fs, dB=True, plot=False, show=False):
     t : np array (N,)
         time vector of the center of the frames (seconds)
     E. L. Benaroya - 09/2018 - Telecom ParisTech - laurent.benaroya@gmail.com
-    '''
+    """
 
     X, f, t = Stft(x, wlen, h, nfft, fs)
     Xspec = np.abs(X)
     if dB:
         Xspec = 20*np.log10(Xspec)  # in dB
     if plot:
-        plt.imshow(Xspec, origin='lower', interpolation='nearest', aspect='auto', extent=(0, t[-1], 0, f[-1]))
+        plt.imshow(Xspec, origin='lower', interpolation='nearest',
+                   aspect='auto', extent=(0, t[-1], 0, f[-1]))
         # plt.colorbar()
         plt.xlabel('Temps (secondes)')
         plt.ylabel('Fréquence (Hz)')
