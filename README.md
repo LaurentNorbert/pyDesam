@@ -11,7 +11,7 @@ Note : in demo.py, for technical reasons, the variable *L* must be odd.
 
 ELB - laurent.benaroya@gmail.com - 01/2019
 
-It is a translation of a part of the Desam toolbox, which is in matlab and can be downloaded at http://www.tsi.telecom-paristech.fr/aao/2010/03/29/desam-toolbox/. 
+It is a translation of a part of the Desam toolbox, which is in Matlab and can be downloaded at http://www.tsi.telecom-paristech.fr/aao/2010/03/29/desam-toolbox/.
 
 The python code corresponds in the Desam toolbox to "sinusoidalModels/shortTerm/highResolution_telecomParisTech".
 
